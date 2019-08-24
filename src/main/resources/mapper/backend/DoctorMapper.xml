@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sfturing.dao.backend.BackendDoctorDao">
+
+    <resultMap id="BaseResultMap" type="cn.sfturing.entity.Doctor">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="doctor_name" jdbcType="VARCHAR" property="doctorName" />
+        <result column="doctor_sex" jdbcType="CHAR" property="doctorSex" />
+        <result column="hospital_name" jdbcType="VARCHAR" property="hospitalName" />
+        <result column="offices_name" jdbcType="VARCHAR" property="officesName" />
+        <result column="doctor_img" jdbcType="VARCHAR" property="doctorImg" />
+        <result column="doctor_title" jdbcType="VARCHAR" property="doctorTitle" />
+        <result column="teach_title" jdbcType="VARCHAR" property="teachTitle" />
+        <result column="doctor_administrative" jdbcType="VARCHAR" property="doctorAdministrative" />
+        <result column="doctor_degree" jdbcType="VARCHAR" property="doctorDegree" />
+        <result column="doctor_forte" jdbcType="VARCHAR" property="doctorForte" />
+    </resultMap>
+
+
+    <select id="findAllDoctor" resultMap="BaseResultMap">
+        select * from doctor limit #{start},#{size}
+    </select>
+
+    <select id="findAllDoctor1" resultMap="BaseResultMap">
+        select * from doctor
+    </select>
+
+    <select id="findDoctorById" resultType="cn.sfturing.entity.Doctor">
+        select * from doctor where id=#{id}
+    </select>
+
+    <insert id="addDoctor" parameterType="cn.sfturing.entity.Doctor">
+        insert into doctor(doctor_name, doctor_sex, hospital_name, offices_name,
+                           doctor_img, doctor_title, doctor_degree, doctor_forte,
+                           doctor_about)
+        values(#{doctorName},#{doctorSex},#{hospitalName},#{officesName},
+               #{doctorImg},#{doctorTitle},#{doctorDegree},#{doctorForte},
+               #{doctorAbout})
+    </insert>
+
+    <update id="modifyDoctor">
+        update doctor
+        <set>
+            <if test="doctorName != null">
+                doctor_name = #{doctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorSex != null">
+                doctor_sex = #{doctorSex,jdbcType=CHAR},
+            </if>
+            <if test="hospitalName != null">
+                hospital_name = #{hospitalName,jdbcType=VARCHAR},
+            </if>
+            <if test="officesName != null">
+                offices_name = #{officesName,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorTitle != null">
+                doctor_title = #{doctorTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="teachTitle != null">
+                teach_title = #{teachTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorAdministrative != null">
+                doctor_administrative = #{doctorAdministrative,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorDegree != null">
+                doctor_degree = #{doctorDegree,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorForte != null">
+                doctor_forte = #{doctorForte,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorAbout != null">
+                doctor_about = #{doctorAbout,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

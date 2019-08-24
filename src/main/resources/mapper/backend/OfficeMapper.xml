@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sfturing.dao.backend.BackendOfficeDao">
+
+    <resultMap id="BaseResultMap" type="cn.sfturing.entity.Office">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="offices_name" jdbcType="VARCHAR" property="officesName" />
+        <result column="hospital_name" jdbcType="VARCHAR" property="hospitalName" />
+        <result column="doctor_num" jdbcType="VARCHAR" property="doctorNum" />
+        <result column="offices_equipment" jdbcType="VARCHAR" property="officesEquipment" />
+        <result column="offices_diagnosis_scope" jdbcType="VARCHAR" property="officesDiagnosisScope" />
+    </resultMap>
+
+
+    <select id="findAllOffice" resultMap="BaseResultMap">
+        select * from hos_office
+    </select>
+
+    <select id="officeInfoReturn" resultType="cn.sfturing.entity.Office">
+        select * from hos_office where id=#{id}
+    </select>
+
+    <select id="findHospitalByOffice" resultType="java.lang.String">
+        select hospital_name from hos_office where offices_name=#{officeName}
+    </select>
+
+    <insert id="addOffice" parameterType="cn.sfturing.entity.Office">
+        insert into hos_office(offices_name, hospital_name, doctor_num, offices_honor, offices_equipment, offices_about, offices_diagnosis_scope)
+        values(#{officesName},#{hospitalName},#{doctorNum},#{officesHonor},#{officesEquipment},#{officesAbout},#{officesDiagnosisScope})
+    </insert>
+
+    <update id="modifyOffice" parameterType="cn.sfturing.entity.Office">
+        update hos_office
+        <set>
+            <if test="officesName != null">
+                offices_name = #{officesName,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalName != null">
+                hospital_name = #{hospitalName,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorNum != null">
+                doctor_num = #{doctorNum,jdbcType=VARCHAR},
+            </if>
+            <if test="officesEquipment != null">
+                offices_equipment = #{officesEquipment,jdbcType=VARCHAR},
+            </if>
+            <if test="officesDiagnosisScope != null">
+                offices_diagnosis_scope = #{officesDiagnosisScope,jdbcType=VARCHAR},
+            </if>
+            <if test="officesHonor != null">
+                offices_honor = #{officesHonor,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="officesAbout != null">
+                offices_about = #{officesAbout,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="deleteOfficeById">
+        delete from hos_office where id=#{id}
+    </delete>
+
+
+</mapper>

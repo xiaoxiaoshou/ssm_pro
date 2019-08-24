@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sfturing.dao.backend.BackendLoginDao">
+
+
+    <select id="login" resultType="cn.sfturing.entity.Admininstrator">
+        select * from adminisator where username=#{userName} and password=#{password}
+    </select>
+
+    <select id="selectAdminById" resultType="cn.sfturing.entity.Admininstrator">
+        select * from adminisator where id=#{id}
+    </select>
+
+    <insert id="addAdminisator" >
+        insert into adminisator(username) values(#{userName})
+    </insert>
+
+</mapper>

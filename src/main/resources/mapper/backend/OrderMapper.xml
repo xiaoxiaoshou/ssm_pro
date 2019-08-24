@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sfturing.dao.backend.BackendOrderDao">
+
+    <resultMap id="BaseOrderResult" type="cn.sfturing.entity.OrderRecords">
+        <id column="id" jdbcType="INTEGER"  property="id"/>
+        <result column="userID" property="UserID"/>
+        <result column="hospital_name" property="hospitalName"/>
+        <result column="offices_name" property="officesName"/>
+        <result column="doctor_name" property="doctorName"/>
+        <result column="transact_date" property="transactDate"/>
+        <result column="transact_time" property="transactTime"/>
+        <result column="disease_info" property="diseaseInfo"/>
+        <result column="is_success" property="isSuccess"/>
+        <result column="is_send" property="isSend"/>
+        <result column="is_cancel" property="isCancel"/>
+        <result column="create_time" property="createTime"/>
+        <result column="order_ver" property="orderVer"/>
+        <result column="is_finish" property="isFinish"/>
+    </resultMap>
+
+    <select id="findAllOrder" resultMap="BaseOrderResult">
+        select * from order_records
+    </select>
+
+    <select id="findAllOrderByName" resultMap="BaseOrderResult">
+        select * from order_records where doctor_name = #{userName}
+    </select>
+
+    <select id="findsAlreadyTreated" resultMap="BaseOrderResult">
+        select * from order_records where is_finish=1
+    </select>
+
+    <select id="findsAlreadyTreatedByName" resultMap="BaseOrderResult">
+        select * from order_records where is_finish=1 and doctor_name = #{userName}
+    </select>
+
+    <select id="findsCancelled" resultMap="BaseOrderResult">
+        select * from order_records where is_cancel=1
+    </select>
+
+    <select id="findsCancelledByName" resultMap="BaseOrderResult">
+        select * from order_records where is_cancel=1 and doctor_name=#{userName}
+    </select>
+
+    <select id="findsBreakAppointment" resultMap="BaseOrderResult">
+        select * from  order_records where  NOW()>transact_date and is_finish=0
+    </select>
+
+    <select id="findsBreakAppointmentByName" resultMap="BaseOrderResult">
+        select * from  order_records where  NOW()>transact_date and is_finish=0 and doctor_name=#{userName}
+    </select>
+
+    <select id="selectWaitTreated" resultMap="BaseOrderResult">
+        select * from order_records where transact_date > NOW()  and  is_send=1 and is_finish = 0 and  is_cancel=0
+    </select>
+
+    <select id="selectWaitTreatedByName" resultMap="BaseOrderResult">
+        select * from order_records where transact_date > NOW()  and  is_send=1 and is_finish = 0 and  is_cancel=0 and doctor_name=#{userName}
+    </select>
+
+
+    <update id="modifyOrderStatus" >
+        update order_records set is_finish=1 where id=#{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sfturing.dao.backend.BackendHospitalDao">
+
+    <resultMap id="BaseResultMap" type="cn.sfturing.entity.Hospital">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="hospital_name" jdbcType="VARCHAR" property="hospitalName" />
+        <result column="hospital_area" jdbcType="VARCHAR" property="hospitalArea" />
+        <result column="hospital_img" jdbcType="VARCHAR" property="hospitalImg" />
+        <result column="hospital_dean_name" jdbcType="VARCHAR" property="hospitalDeanName" />
+        <result column="hospital_year" jdbcType="VARCHAR" property="hospitalYear" />
+        <result column="hospital_nature" jdbcType="VARCHAR" property="hospitalNature" />
+        <result column="hospital_grade" jdbcType="VARCHAR" property="hospitalGrade" />
+        <result column="hospital_offices_num" jdbcType="INTEGER" property="hospitalOfficesNum" />
+        <result column="medical_insurance_num" jdbcType="INTEGER" property="medicalInsuranceNum" />
+        <result column="hospital_bed_num" jdbcType="INTEGER" property="hospitalBedNum" />
+        <result column="outpatient_num" jdbcType="INTEGER" property="outpatientNum" />
+        <result column="is_medical_insurance" jdbcType="VARCHAR" property="isMedicalInsurance" />
+        <result column="hospital_url" jdbcType="VARCHAR" property="hospitalUrl" />
+        <result column="hospital_phone" jdbcType="VARCHAR" property="hospitalPhone" />
+        <result column="hospital_address" jdbcType="VARCHAR" property="hospitalAddress" />
+        <result column="hospital_post_code" jdbcType="VARCHAR" property="hospitalPostCode" />
+        <result column="hospital_bus_route" jdbcType="VARCHAR" property="hospitalBusRoute" />
+        <result column="is_open" jdbcType="INTEGER" property="isOpen" />
+    </resultMap>
+
+
+    <select id="findAllHospital" resultMap="BaseResultMap">
+        select * from hospital
+    </select>
+
+    <select id="findOfficesByHospitalName" resultType="java.lang.String">
+        select offices_name from hos_office where hospital_name=#{hospitalName}
+    </select>
+
+    <select id="selectHospitalById" resultType="cn.sfturing.entity.Hospital">
+        select *
+        from hospital
+        where id=#{id}
+    </select>
+
+    <insert id="addHospital" parameterType="cn.sfturing.entity.Hospital">
+        insert into hospital
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="hospitalName != null">
+                hospital_name,
+            </if>
+            <if test="hospitalArea != null">
+                hospital_area,
+            </if>
+            <if test="hospitalImg != null">
+                hospital_img,
+            </if>
+            <if test="hospitalDeanName != null">
+                hospital_dean_name,
+            </if>
+            <if test="hospitalYear != null">
+                hospital_year,
+            </if>
+            <if test="hospitalNature != null">
+                hospital_nature,
+            </if>
+            <if test="hospitalGrade != null">
+                hospital_grade,
+            </if>
+            <if test="hospitalOfficesNum != null">
+                hospital_offices_num,
+            </if>
+            <if test="medicalInsuranceNum != null">
+                medical_insurance_num,
+            </if>
+            <if test="hospitalBedNum != null">
+                hospital_bed_num,
+            </if>
+            <if test="outpatientNum != null">
+                outpatient_num,
+            </if>
+            <if test="isMedicalInsurance != null">
+                is_medical_insurance,
+            </if>
+            <if test="hospitalUrl != null">
+                hospital_url,
+            </if>
+            <if test="hospitalPhone != null">
+                hospital_phone,
+            </if>
+            <if test="hospitalAddress != null">
+                hospital_address,
+            </if>
+            <if test="hospitalPostCode != null">
+                hospital_post_code,
+            </if>
+            <if test="hospitalBusRoute != null">
+                hospital_bus_route,
+            </if>
+            <if test="isOpen != null">
+                is_open,
+            </if>
+            <if test="hospitalEquipment != null">
+                hospital_equipment,
+            </if>
+            <if test="hospitalAbout != null">
+                hospital_about,
+            </if>
+            <if test="hospitalHonor != null">
+                hospital_honor,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="hospitalName != null">
+                #{hospitalName,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalArea != null">
+                #{hospitalArea,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalImg != null">
+                #{hospitalImg,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalDeanName != null">
+                #{hospitalDeanName,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalYear != null">
+                #{hospitalYear,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalNature != null">
+                #{hospitalNature,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalGrade != null">
+                #{hospitalGrade,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalOfficesNum != null">
+                #{hospitalOfficesNum,jdbcType=INTEGER},
+            </if>
+            <if test="medicalInsuranceNum != null">
+                #{medicalInsuranceNum,jdbcType=INTEGER},
+            </if>
+            <if test="hospitalBedNum != null">
+                #{hospitalBedNum,jdbcType=INTEGER},
+            </if>
+            <if test="outpatientNum != null">
+                #{outpatientNum,jdbcType=INTEGER},
+            </if>
+            <if test="isMedicalInsurance != null">
+                #{isMedicalInsurance,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalUrl != null">
+                #{hospitalUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalPhone != null">
+                #{hospitalPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalAddress != null">
+                #{hospitalAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalPostCode != null">
+                #{hospitalPostCode,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalBusRoute != null">
+                #{hospitalBusRoute,jdbcType=VARCHAR},
+            </if>
+            <if test="isOpen != null">
+                #{isOpen,jdbcType=INTEGER},
+            </if>
+            <if test="hospitalEquipment != null">
+                #{hospitalEquipment,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="hospitalAbout != null">
+                #{hospitalAbout,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="hospitalHonor != null">
+                #{hospitalHonor,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyHospital">
+        update hospital
+        <set>
+            <if test="hospitalName != null">
+                hospital_name = #{hospitalName,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalArea != null">
+                hospital_area = #{hospitalArea,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalImg != null">
+                hospital_img = #{hospitalImg,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalDeanName != null">
+                hospital_dean_name = #{hospitalDeanName,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalYear != null">
+                hospital_year = #{hospitalYear,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalNature != null">
+                hospital_nature = #{hospitalNature,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalGrade != null">
+                hospital_grade = #{hospitalGrade,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalOfficesNum != null">
+                hospital_offices_num = #{hospitalOfficesNum,jdbcType=INTEGER},
+            </if>
+            <if test="medicalInsuranceNum != null">
+                medical_insurance_num = #{medicalInsuranceNum,jdbcType=INTEGER},
+            </if>
+            <if test="hospitalBedNum != null">
+                hospital_bed_num = #{hospitalBedNum,jdbcType=INTEGER},
+            </if>
+            <if test="outpatientNum != null">
+                outpatient_num = #{outpatientNum,jdbcType=INTEGER},
+            </if>
+            <if test="isMedicalInsurance != null">
+                is_medical_insurance = #{isMedicalInsurance,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalUrl != null">
+                hospital_url = #{hospitalUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalPhone != null">
+                hospital_phone = #{hospitalPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalAddress != null">
+                hospital_address = #{hospitalAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalPostCode != null">
+                hospital_post_code = #{hospitalPostCode,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalBusRoute != null">
+                hospital_bus_route = #{hospitalBusRoute,jdbcType=VARCHAR},
+            </if>
+            <if test="isOpen != null">
+                is_open = #{isOpen,jdbcType=INTEGER},
+            </if>
+            <if test="hospitalEquipment != null">
+                hospital_equipment = #{hospitalEquipment,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="hospitalAbout != null">
+                hospital_about = #{hospitalAbout,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="hospitalHonor != null">
+                hospital_honor = #{hospitalHonor,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>
